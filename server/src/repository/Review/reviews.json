@@ -1,0 +1,65 @@
+[
+  {
+    "id": "e4a882ec-4d6c-45ea-97f6-e84037cc0a8f",
+    "stars": 4,
+    "description": "Pretty good!",
+    "userId": "6556e7cb-e90a-418e-aabe-2acb3e2f06a8",
+    "createdAt": "2023-09-03T21:47:23.114Z"
+  },
+  {
+    "id": "50291048-ced0-4846-9237-1e932cfd9e9a",
+    "stars": 1,
+    "description": "Meh...",
+    "userId": "4f8db2d4-4fee-417f-af3b-650d4196cae7",
+    "createdAt": "2023-07-09T21:47:23.114Z"
+  },
+  {
+    "id": "0ca98297-9ef4-450d-b3cb-0da95e803081 ",
+    "stars": 5,
+    "description": "",
+    "userId": "106afe06-4c62-479d-80ac-c82a208524e2",
+    "createdAt": "2023-09-09T13:47:23.114Z"
+  },
+  {
+    "id": "b8c0c54a-f6aa-4272-9fce-358fc4472b6a",
+    "stars": 3,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+    "userId": "e09ca4af-fd62-4bbe-b41c-2cd0d4ecc84a",
+    "createdAt": "2023-09-09T10:47:23.114Z"
+  },
+  {
+    "id": "2257c7c5-570b-4b12-8e3a-af491b97c412",
+    "stars": 2,
+    "description": "ed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto!",
+    "userId": "5298bf24-8128-4b39-943b-444dbcfa47fa",
+    "createdAt": "2023-08-09T21:47:23.114Z"
+  },
+  {
+    "id": "0ca98297-9ef4-450d-b3cb-0da95e803081",
+    "stars": 5,
+    "description": "Excellent!",
+    "userId": "106afe06-4c62-479d-80ac-c82a208524e2",
+    "createdAt": "2023-09-09T13:47:23.114Z"
+  },
+  {
+    "id": "aae27a35-cfd1-4661-97cd-7075a9960439",
+    "stars": 3,
+    "description": "Not bad, but could be better.",
+    "userId": "e09ca4af-fd62-4bbe-b41c-2cd0d4ecc84a",
+    "createdAt": "2023-09-09T10:47:23.114Z"
+  },
+  {
+    "id": "ac4eeb96-8165-460e-96eb-0950e2fe3cf6",
+    "stars": 2,
+    "description": "Needs improvement.",
+    "userId": "3f5971b0-93e1-4ed5-bcb0-e9ec25974ad7",
+    "createdAt": "2023-08-09T21:47:23.114Z"
+  },
+  {
+    "id": "cd936e25-20e2-46ca-9f15-639f59402e51",
+    "stars": 5,
+    "description": "Outstanding!",
+    "userId": "4a1b5f9c-0a25-4877-87ea-55f4175ebafe",
+    "createdAt": "2023-09-15T08:15:23.114Z"
+  }
+]
