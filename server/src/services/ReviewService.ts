@@ -24,13 +24,17 @@ class ReviewService {
   getAllReviews() {
     const rawReviews = this.repository.getAll();
 
-    return rawReviews.map(rawReview => {
+    const reviews = rawReviews.map(rawReview => {
       const { createdAt, description, id, stars, userId } = rawReview;
       const user = this.userService.getUserById(userId);
       const review = new Review(id, userId, stars, description, createdAt);
       review.setUser(user);
       return review;
     });
+
+    return reviews.sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+    );
   }
 
   getReviewById(id: string) {
@@ -66,8 +70,6 @@ class ReviewService {
 
   getReviewsPaginated(page: number, pageSize: number) {
     const reviews = this.getAllReviews();
-
-    reviews.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
     const startIndex = (page - 1) * pageSize;
     const endIndex = startIndex + pageSize;

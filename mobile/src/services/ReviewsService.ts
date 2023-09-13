@@ -38,6 +38,24 @@ export async function getReviewsPaginated(page: number, pageSize: number) {
     }
 }
 
+export async function getAllReviews() {
+    try {
+        const url = new URL(<any>process.env.EXPO_PUBLIC_API_URL + API_ENPOINT.REVIEWS);
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json'
+            }
+        });
+
+        const json = await response.json();
+        return json;
+    } catch(err) {
+        console.error(err);
+    }
+}
+
 export async function createReview(starsParm: number, descriptionParm: string, name: string) {
     try {
         const url = new URL(<any>process.env.EXPO_PUBLIC_API_URL + API_ENPOINT.REVIEWS);
@@ -64,14 +82,6 @@ export async function createReview(starsParm: number, descriptionParm: string, n
 }
 
 export async function updateReview(idParam: number, starsParam: number, descriptionParam: string, name: string) {
-
-    console.log('DESCIRPTION  ', descriptionParam);
-
-    console.log(JSON.stringify({
-        stars: starsParam,
-        description: descriptionParam,
-        name
-    }))
     try {
         const url = new URL(<any>process.env.EXPO_PUBLIC_API_URL + API_ENPOINT.REVIEWS + `/${idParam}`);
         const response = await fetch(url, {

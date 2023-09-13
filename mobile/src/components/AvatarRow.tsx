@@ -6,11 +6,12 @@ import { Nullable } from '../types';
 interface IProps {
   image: Nullable<string>;
   rightContent: React.ReactNode;
+  delimitationLine?: boolean;
 }
 
-const AvatarRow: React.FC<IProps> = ({ image, rightContent }) => {
+const AvatarRow: React.FC<IProps> = ({ image, rightContent, delimitationLine }) => {
   return (
-    <ContainerWithTopBorder>
+    <ContainerWithTopBorder containerStyles={delimitationLine ? {} : { borderTopWidth: 0, marginTop: 0 }}>
       <View style={styles.container}>
         <Avatar image={image} stylesProp={styles.avatarStyle} />
         <View style={styles.rightContentContainer}>{rightContent}</View>

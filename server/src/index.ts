@@ -3,8 +3,10 @@ import reviewRouter from './router';
 import { errorHandler } from './middlewares/errorHandler';
 import winston from 'winston';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
 const main = async () => {
+  dotenv.config();
   const app = express();
 
   app.use(cors());

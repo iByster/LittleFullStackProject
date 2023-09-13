@@ -1,4 +1,6 @@
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet } from 'react-native';
+
+const screenHeight = Dimensions.get('window').height;
 
 interface IProps {
   children: React.ReactNode;
@@ -6,14 +8,14 @@ interface IProps {
 }
 
 const WrapperContainer: React.FC<IProps> = ({ children, containerStyles }) => {
-  return <View style={[styles.container, containerStyles ]}>{children}</View>;
+  return <ScrollView style={[styles.container, containerStyles ]}>{children}</ScrollView>;
 };
 
 const styles = StyleSheet.create({
   container: {
     marginTop: 70,
     padding: 20,
-    marginBottom: 500,
+    height: screenHeight
   },
 });
 

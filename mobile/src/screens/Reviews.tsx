@@ -1,13 +1,10 @@
 import {
   ActivityIndicator,
-  FlatList,
-  RefreshControl,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Dimensions
 } from 'react-native';
 import AverageReview from '../components/AverageReviews';
 import WrapperContainer from '../containers/WrapperContainer';
@@ -22,9 +19,6 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from './RootStackParmList';
 import { useReviewContext } from '../context/CurrentReviewContent';
 import ContainerWithTopBorder from '../containers/ContainerWithTopBorder';
-
-const screenHeight = Dimensions.get('window').height;
-const listHeight = screenHeight * 0.45;
 
 interface IProps {}
 
@@ -54,33 +48,24 @@ const Reviews: React.FC<IProps> = ({}) => {
     fetchData().catch(console.error);
   }, [page]);
 
-  const renderReview = ({ item }: { item: ReviewEntity }) => {
-    return <Review review={item} />;
-  };
-
-  const handleEmpty = () => {
-    return <Text> No reviews!</Text>;
-  };
-
   const handleStarPress = (starCount: number) => {
     setSelectedStars(starCount);
     navigation.navigate('ReviewForm', { selectedStars: starCount });
-  };
-
-  const handleRefresh = () => {
-    setLoading(true);
-    setTimeout(() => setLoading(false), 1000);
   };
 
   const handleLoadMore = () => {
     setPage(page + 1);
   };
 
+  const handleAllReviews = () => {
+    navigation.navigate('AllReviews', {});
+  }
+
   return (
     <WrapperContainer>
       <View style={styles.totalReviewContainer}>
         <AverageReview />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleAllReviews}>
           <Text style={styles.viewAllReviewsText}>View all reviews</Text>
         </TouchableOpacity>
       </View>
@@ -90,12 +75,13 @@ const Reviews: React.FC<IProps> = ({}) => {
             <Text style={styles.latestReview}>Your review</Text>
           </ContainerWithTopBorder>
 
-          <Review review={newReview} options />
+          <Review review={newReview} options delimitationLine={false} />
         </View>
       ) : (
         <AvatarRow
           image={null}
           key={'rate'}
+          delimitationLine
           rightContent={
             <View>
               <Text style={styles.rateSectionHeader}>Rate and review</Text>
@@ -113,15 +99,9 @@ const Reviews: React.FC<IProps> = ({}) => {
         <ContainerWithTopBorder>
           <Text style={styles.latestReview}>Latest reviews</Text>
         </ContainerWithTopBorder>
-        <FlatList
-          style={styles.reviewsContainer}
-          data={reviews}
-          scrollEnabled
-          renderItem={renderReview}
-          keyExtractor={(item) => item.id}
-          ListEmptyComponent={handleEmpty}
-          refreshControl={<RefreshControl refreshing={loading} onRefresh={handleRefresh} />}
-        />
+        <View style={styles.reviewsContainer}>
+          {reviews && reviews.map((review) => (<Review review={review} key={review.id} delimitationLine />))}
+        </View>
         {loading && <ActivityIndicator size="large" color={'#87C1FF'} />}
         {hasMore && (
           <View style={styles.loadMoreContainer}>
@@ -160,14 +140,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 20,
+    marginBottom: 40,
   },
   latestReview: {
     fontSize: 20,
     fontWeight: '700',
   },
   reviewsContainer: {
-    height: listHeight,
+    marginBottom: 40,
   },
 });
 

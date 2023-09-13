@@ -1,13 +1,15 @@
 import React from 'react';
 import { getAverageStars } from '../services/ReviewsService';
 import { StyleSheet, Text, View } from 'react-native';
+import { useReviewContext } from '../context/CurrentReviewContent';
 
 interface IProps {}
 
 const AverageReview: React.FC<IProps> = ({}) => {
   const [averageStars, setAverageStars] = React.useState<number | null>(null);
   const [count, setCount] = React.useState<number>(0);
-  const [averageContainerColor, setAverageContainerColor] = React.useState<string>('');
+  let averageContainerColor = '#ff6347';
+  const { newReview } = useReviewContext();
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -17,23 +19,25 @@ const AverageReview: React.FC<IProps> = ({}) => {
     };
 
     fetchData().catch(console.error);
-  }, []);
+  }, [newReview]);
 
-  React.useEffect(() => {
-    if (averageStars !== null) {
-      if (averageStars < 2.5) {
-        setAverageContainerColor('#ff6347');
-      } else if (averageStars >= 2.5 && averageStars <= 4) {
-        setAverageContainerColor('#FEDE00');
-      } else {
-        setAverageContainerColor('#32cd32');
-      }
+  if (averageStars !== null) {
+    if (averageStars < 2.5) {
+      averageContainerColor ='#ff6347';
+    } else if (averageStars >= 2.5 && averageStars <= 4) {
+      averageContainerColor ='#FEDE00';
+    } else {
+      averageContainerColor ='#32cd32';
     }
-  }, [averageStars]);
+  }
 
   return (
     <View style={styles.container}>
-      <View style={[styles.averageContainer, { backgroundColor: averageContainerColor }]}>
+      <View
+        style={[
+          styles.averageContainer,
+          { backgroundColor: averageContainerColor },
+        ]}>
         <Text style={styles.averageText}>{averageStars}</Text>
       </View>
       <Text style={styles.totalText}>from {count} ratings</Text>

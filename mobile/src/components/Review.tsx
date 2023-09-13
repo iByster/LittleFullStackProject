@@ -16,10 +16,10 @@ const descriptionContainerWidth = screenWidth * 0.7;
 interface IProps {
   review: ReviewEntity;
   options?: boolean;
+  delimitationLine?: boolean;
 }
 
-const Review: React.FC<IProps> = ({ review, options }) => {
-  // const [reviewState] = React.useState<ReviewEntity>(review);
+const Review: React.FC<IProps> = ({ review, options, delimitationLine }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const renderStars = () => {
@@ -78,7 +78,13 @@ const Review: React.FC<IProps> = ({ review, options }) => {
     );
   };
 
-  return <AvatarRow image={review.user?.image} rightContent={renderReviewContent()} />;
+  return (
+    <AvatarRow
+      delimitationLine={delimitationLine}
+      image={review.user?.image}
+      rightContent={renderReviewContent()}
+    />
+  );
 };
 
 const styles = StyleSheet.create({
@@ -116,7 +122,7 @@ const styles = StyleSheet.create({
   describeExperice: {
     color: '#87C1FF',
     fontSize: 15,
-    fontWeight: '600'
+    fontWeight: '600',
   },
 });
 
