@@ -6,8 +6,8 @@ import UserRepository from '../repository/User/UserRepository';
 class UserService {
   private repository: UserRepository;
 
-  constructor() {
-    this.repository = new UserRepository();
+  constructor(filePath?: string) {
+    this.repository = new UserRepository(filePath);
   }
 
   createUser(name: Nullable<string>, image: Nullable<string>) {
@@ -15,7 +15,7 @@ class UserService {
 
     const newUser = new User(userId, name, image);
     this.repository.add(newUser);
-    return { insertedId: userId, ...newUser };
+    return { ...newUser };
   }
 
   getAllUsers() {

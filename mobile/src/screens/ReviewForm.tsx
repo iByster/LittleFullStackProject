@@ -7,6 +7,7 @@ import WrapperContainer from '../containers/WrapperContainer';
 import ContainerWithTopBorder from '../containers/ContainerWithTopBorder';
 import { createReview, updateReview } from '../services/ReviewsService';
 import { useReviewContext } from '../context/CurrentReviewContent';
+import BottomAlert from '../components/BottomAlert';
 
 interface IProps {}
 
@@ -15,6 +16,7 @@ const ReviewForm: React.FC<IProps> = ({}) => {
   const [selectedStars, setSelectedStars] = React.useState(route.params.selectedStars);
   const [name, setName] = React.useState<string>(route.params?.name || '');
   const [description, setDescription] = React.useState<string>(route.params?.description || '');
+  const [isAlertVisible, setAlertVisible] = React.useState(false);
   const navigation = useNavigation();
   const { newReview: newReviewContext, saveNewReview } = useReviewContext();
 
@@ -75,7 +77,7 @@ const ReviewForm: React.FC<IProps> = ({}) => {
   };
 
   const handleClose = () => {
-    navigation.goBack();
+    setAlertVisible(true);
   };
 
   const handleStarPress = (starCount: number) => {
@@ -106,6 +108,20 @@ const ReviewForm: React.FC<IProps> = ({}) => {
     return text;
   };
 
+  const handleAlertSave = async () => {
+    setAlertVisible(false);
+    await handleSave();
+  };
+
+  const handleExitWithoutSaving = () => {
+    setAlertVisible(false);
+    navigation.goBack();
+  };
+
+  const handleCancel = () => {
+    setAlertVisible(false);
+  };
+
   return (
     <WrapperContainer containerStyles={styles.formContainer}>
       <View style={styles.starRatingContainer}>
@@ -133,6 +149,12 @@ const ReviewForm: React.FC<IProps> = ({}) => {
           onChangeText={(text) => setDescription(text)}
         />
       </View>
+      <BottomAlert
+        isVisible={isAlertVisible}
+        onSave={handleAlertSave}
+        onExit={handleExitWithoutSaving}
+        onCancel={handleCancel}
+      />
     </WrapperContainer>
   );
 };

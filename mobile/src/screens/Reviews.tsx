@@ -37,9 +37,9 @@ const Reviews: React.FC<IProps> = ({}) => {
       setLoading(true);
       const newReviews = page === 1 ? [] : [...reviews];
       const { reviews: reviewsData, hasMore } = await getReviewsPaginated(page, pageSize);
-      if (newReview) {
-        reviewsData.filter((r: any) => r.id !== newReview.id);
-      }
+      const filteredReviewsData = newReview
+        ? reviewsData.filter((r: ReviewEntity) => r.id !== newReview.id)
+        : reviewsData;
       setReviews(page === 1 ? reviewsData : [...newReviews, ...reviewsData]);
       setHasMore(hasMore);
       setLoading(false);
@@ -59,7 +59,7 @@ const Reviews: React.FC<IProps> = ({}) => {
 
   const handleAllReviews = () => {
     navigation.navigate('AllReviews', {});
-  }
+  };
 
   return (
     <WrapperContainer>
@@ -100,7 +100,8 @@ const Reviews: React.FC<IProps> = ({}) => {
           <Text style={styles.latestReview}>Latest reviews</Text>
         </ContainerWithTopBorder>
         <View style={styles.reviewsContainer}>
-          {reviews && reviews.map((review) => (<Review review={review} key={review.id} delimitationLine />))}
+          {reviews &&
+            reviews.map((review) => <Review review={review} key={review.id} delimitationLine />)}
         </View>
         {loading && <ActivityIndicator size="large" color={'#87C1FF'} />}
         {hasMore && (

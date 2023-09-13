@@ -3,8 +3,8 @@ import path from 'path';
 import Repository from '../common/Repository';
 
 class UserRepository extends Repository<User> {
-  constructor() {
-    super(path.join(__dirname, 'users.json'));
+  constructor(filePath?: string) {
+    super(filePath || path.join(__dirname, 'users.json'));
   }
 }
 

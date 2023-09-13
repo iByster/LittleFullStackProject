@@ -3,8 +3,8 @@ import path from 'path';
 import Repository from '../common/Repository';
 
 class ReviewRepository extends Repository<Review> {
-  constructor() {
-    super(path.join(__dirname, 'reviews.json'));
+  constructor(filePath?: string) {
+    super(filePath || path.join(__dirname, 'reviews.json'));
   }
 }
 

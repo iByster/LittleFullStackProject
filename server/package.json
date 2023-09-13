@@ -29,7 +29,8 @@
     "start": "node dist/index.js",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "lint-and-fix": "eslint . --ext .ts --fix"
+    "lint-and-fix": "eslint . --ext .ts --fix",
+    "test": "mocha -r ts-node/register 'test/**/*'"
   },
   "dependencies": {
     "@types/express": "^4.17.17",

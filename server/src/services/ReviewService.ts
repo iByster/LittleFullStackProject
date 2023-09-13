@@ -7,8 +7,8 @@ class ReviewService {
   private repository: ReviewRepository;
   private userService: UserService;
 
-  constructor(userService: UserService) {
-    this.repository = new ReviewRepository();
+  constructor(userService: UserService, filePath?: string) {
+    this.repository = new ReviewRepository(filePath);
     this.userService = userService;
   }
 
@@ -18,7 +18,7 @@ class ReviewService {
     const newReview = new Review(reviewId, userId, stars, description);
     delete newReview.user;
     this.repository.add(newReview);
-    return { insertedId: reviewId, ...newReview };
+    return { ...newReview };
   }
 
   getAllReviews() {
