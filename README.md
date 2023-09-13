@@ -55,4 +55,11 @@ npm run ios
 npm run web
 ```
 
+## Tests
 
+### Backend
+
+```
+cd server
+yarn test
+```
