@@ -37,6 +37,7 @@ docker run -p 8080:3000 server
 
 ```
 cd mobile
+npm install
 ```
 
 ### For Android
