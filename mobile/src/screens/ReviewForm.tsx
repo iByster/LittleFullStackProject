@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, Platform } from 'react-native';
 import RateStars from '../components/RateStars';
 import { RootStackParamList } from './RootStackParmList';
 import WrapperContainer from '../containers/WrapperContainer';
@@ -34,20 +34,39 @@ const ReviewForm: React.FC<IProps> = ({}) => {
         </TouchableOpacity>
       ),
     });
-  }, [navigation, description, name, selectedStars, isAlertVisible, setAlertVisible, newReviewContext]);
+  }, [
+    navigation,
+    description,
+    name,
+    selectedStars,
+    isAlertVisible,
+    setAlertVisible,
+    newReviewContext,
+  ]);
 
   const handleSave = async () => {
     let newReview;
 
     if (newReviewContext) {
-        newReview = await updateReview(newReviewContext.id, selectedStars, description, name);
+      newReview = await updateReview(newReviewContext.id, selectedStars, description, name);
     } else {
-        newReview = await createReview(selectedStars, description, name);
+      newReview = await createReview(selectedStars, description, name);
     }
 
     saveNewReview(newReview);
 
-    Alert.alert(
+    if (Platform.OS === 'web') {
+      const result = window.confirm(
+        "Thank you for your review. You're helping others make smarter decisions every day."
+      );
+    
+      if (result) {
+        navigation.goBack();
+      } else {
+        navigation.goBack();
+      }
+    } else {
+      Alert.alert(
         'Thank you for your review',
         "You're helping others make smarter decisions every day.",
         [
@@ -60,6 +79,7 @@ const ReviewForm: React.FC<IProps> = ({}) => {
         ],
         { cancelable: false }
       );
+    }
   };
 
   const handleClose = () => {
@@ -171,11 +191,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.3,
     borderBottomColor: '#979797',
     fontSize: 18,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   inputDescription: {
     paddingBottom: 60,
-  }
+  },
 });
 
 export default ReviewForm;
