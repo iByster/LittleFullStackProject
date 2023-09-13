@@ -25,7 +25,7 @@ const BottomAlert: React.FC<BottomAlertProps> = ({ isVisible, onSave, onCancel, 
             </TouchableOpacity>
           </View>
           <View style={styles.contentOptionsContainer}>
-            <TouchableOpacity onPress={onExit}>
+            <TouchableOpacity onPress={onExit} disabled>
               <Text style={[styles.contentOptions, styles.withoutSaving]}>Exit Without Saving</Text>
             </TouchableOpacity>
           </View>

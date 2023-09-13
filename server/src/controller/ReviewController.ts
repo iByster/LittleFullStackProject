@@ -13,7 +13,7 @@ class ReviewController {
 
   createReview(req: Request, res: Response) {
     const { name, stars, description } = req.body;
-    const { insertedId: userId } = this.userService.createUser(name, null);
+    const { id: userId } = this.userService.createUser(name, null);
     const review = this.reviewService.createReview(userId, stars, description);
     res.status(201);
     res.json(review);

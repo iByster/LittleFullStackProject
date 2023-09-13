@@ -13,26 +13,12 @@ interface IProps {}
 
 const ReviewForm: React.FC<IProps> = ({}) => {
   const route = useRoute<RouteProp<RootStackParamList, 'ReviewForm'>>();
+  const { newReview: newReviewContext, saveNewReview } = useReviewContext();
   const [selectedStars, setSelectedStars] = React.useState(route.params.selectedStars);
   const [name, setName] = React.useState<string>(route.params?.name || '');
   const [description, setDescription] = React.useState<string>(route.params?.description || '');
   const [isAlertVisible, setAlertVisible] = React.useState(false);
   const navigation = useNavigation();
-  const { newReview: newReviewContext, saveNewReview } = useReviewContext();
-
-  React.useEffect(() => {
-    if (route.params.selectedStars) {
-        setSelectedStars(route.params.selectedStars);
-    }
-
-    if (route.params.name) {
-        setName(route.params.name);
-    }
-
-    if (route.params.description) {
-        setDescription(route.params.description);
-    }
-  }, [route])
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -48,7 +34,7 @@ const ReviewForm: React.FC<IProps> = ({}) => {
         </TouchableOpacity>
       ),
     });
-  }, [navigation, description, name, selectedStars]);
+  }, [navigation, description, name, selectedStars, isAlertVisible, setAlertVisible, newReviewContext]);
 
   const handleSave = async () => {
     let newReview;
@@ -133,7 +119,7 @@ const ReviewForm: React.FC<IProps> = ({}) => {
           placeholderTextColor={'#979797'}
           style={styles.input}
           placeholder="Your name"
-          value={name}
+          defaultValue={name}
           onChangeText={(text) => setName(text)}
         />
       </ContainerWithTopBorder>
@@ -145,7 +131,7 @@ const ReviewForm: React.FC<IProps> = ({}) => {
           placeholder="Add more details on your experience..."
           multiline
           numberOfLines={4}
-          value={description}
+          defaultValue={description}
           onChangeText={(text) => setDescription(text)}
         />
       </View>
